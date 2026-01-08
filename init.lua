@@ -11,22 +11,9 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 
--- Appearance
-vim.cmd.colorscheme("shine")
-
 -- Mappings
-local keymap = vim.keymap.set
-
--- Remap 0 to first non-blank character
-keymap("", "0", "^")
-
--- Paste in visual mode without overwriting register
-keymap("x", "p", "pgvy")
-
--- Quick save and quit
-keymap("i", "<C-x>", "<Esc>:x<CR>")
-keymap("n", "<C-x>", ":x<CR>")
-keymap("n", "<C-q>", ":q<CR>")
+vim.keymap.set("", "0", "^")
+vim.keymap.set("x", "p", "pgvy")
 
 -- Last position jump (from our previous discussion)
 vim.api.nvim_create_autocmd("BufReadPost", {
