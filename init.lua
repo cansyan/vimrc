@@ -12,8 +12,13 @@ vim.opt.writebackup = false
 vim.opt.swapfile = false
 
 -- Mappings
-vim.keymap.set("", "0", "^")
-vim.keymap.set("x", "p", "pgvy")
+vim.keymap.set('n', '0', '^') -- move to first non-blank character
+vim.keymap.set('x', 'p', 'pgvy') -- prepare for the second pasting
+vim.keymap.set('n', 'j', 'gj') -- treat long lines as break lines (useful when moving around in them)
+vim.keymap.set('n', 'k', 'gk')
+vim.keymap.set('i', '(', '()<Left>') -- auto-pairing parentheses
+vim.keymap.set('i', '[', '[]<Left>')
+vim.keymap.set('i', '{', '{}<Left>')
 
 -- Last position jump (from our previous discussion)
 vim.api.nvim_create_autocmd("BufReadPost", {
