@@ -1,0 +1,17 @@
+[user]
+	name = cse
+	email = enengege@gmail.com
+[core]
+	excludesfile = /Users/cse/.gitignore_global
+	editor = /usr/local/nvim/bin/nvim
+[init]
+	defaultBranch = master
+[alias]
+	st = status
+	di = diff
+	diffc = diff --cached
+	dc = diff --cached
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true

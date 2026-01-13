@@ -2,37 +2,37 @@
     # Commands to run in interactive sessions can go here
 #end
 
-function fish_prompt -d "Write out the prompt"
+set -gx LANG en_US.UTF-8
+set -gx LC_ALL en_US.UTF-8
+
+function fish_prompt
+    set_color $fish_color_cwd
+    printf '%s' (prompt_pwd)
+    set_color normal
+
 	set -g __fish_git_prompt_showdirtystate true
-    printf '%s%s%s%s> ' (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) (fish_git_prompt)
+    if test -d .git
+        fish_git_prompt
+    end
+
+    printf '> '
 end
 
-function withproxy
-	http_proxy="http://127.0.0.1:8089" https_proxy="http://127.0.0.1:8089" $argv
-end
 
-#function proxy
-#	set --export -g http_proxy "http://127.0.0.1:8080"
-#	set --export -g https_proxy "http://127.0.0.1:8080"
-#	set --export -g no_proxy "localhost,127.0.0.1,192.168.1.1"
-#	echo "set http_proxy to $http_proxy"
-#end
-#
-#function unproxy
-#	set --erase http_proxy
-#	set --erase https_proxy
-#	set --erase no_proxy
-#end
+# Add custom paths to PATH
+fish_add_path -p /usr/local/go/bin /Applications/kitty.app/Contents/MacOS
+set -gx GOPATH (go env GOPATH)
+fish_add_path $GOPATH/bin
+fish_add_path /Users/cse/.local/bin
 
-set PATH "/usr/local/go/bin"
-set PATH "$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-set --export GOPATH "$(go env GOPATH)"
-set PATH "$PATH:$GOPATH/bin"
-set --export PATH "/opt/local/bin:/opt/local/sbin:$PATH"
-
-set --export GOPROXY "https://goproxy.cn,direct"
+# set --export GOPROXY "https://goproxy.cn,direct"
 set --export EDITOR "vim"
+set --export TMPDIR "/tmp"
 
 # make grep human-friendly, will be faster without searching binary files
 alias grep "grep --exclude-dir={.git,.vscode} --binary-files=without-match --color=auto -i"
+# make pgrep ignore case and print longer output
+alias pgrep "pgrep -l -i"
 
+alias vim nvim
+alias vi nvim
