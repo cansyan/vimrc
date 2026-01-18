@@ -8,7 +8,6 @@
 	defaultBranch = master
 [alias]
 	st = status
-	di = diff
 	diffc = diff --cached
 	dc = diff --cached
 [pull]
