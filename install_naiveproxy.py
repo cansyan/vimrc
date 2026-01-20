@@ -52,6 +52,27 @@ def install(domain, user, password):
     os.makedirs("/usr/local/etc", exist_ok=True)
     os.makedirs("/var/www/html", exist_ok=True)
     
+    # Create index.html
+    index_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <p>Server is running.</p>
+</body>
+</html>
+'''
+    try:
+        with open("/var/www/html/index.html", "w") as f:
+            f.write(index_html)
+    except IOError as e:
+        print(f"Failed to write index.html: {e}")
+        sys.exit(1)
+    
     try:
         with open("/usr/local/etc/Caddyfile", "w") as f:
             f.write(caddyCfg % (domain, user, password))
