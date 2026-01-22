@@ -1,0 +1,9 @@
+[init]
+       defaultBranch = master
+[alias]
+       st = status
+       diffc = diff --cached
+[pull]
+       rebase = true
+[push]
+       autoSetupRemote = true
