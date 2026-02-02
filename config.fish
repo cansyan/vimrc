@@ -15,8 +15,8 @@ function fish_prompt
     printf '%s' (prompt_pwd)
     set_color normal
 
-	set -g __fish_git_prompt_showdirtystate true
     if test -d .git
+		set -g __fish_git_prompt_showdirtystate true
         fish_git_prompt
     end
 
@@ -40,4 +40,3 @@ alias grep "grep --exclude-dir={.git,.vscode} --binary-files=without-match --col
 alias pgrep "pgrep -l -i"
 
 alias vim nvim
-alias ping "ping -c10"

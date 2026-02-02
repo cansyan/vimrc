@@ -177,14 +177,14 @@ NAIVE_URI="http2://${NAIVE_BASE64}?padding=1"
 # Install qrencode if not available
 if ! command -v qrencode &> /dev/null; then
     echo "Installing qrencode..."
-    apt-get update -qq
+    # apt-get update -qq
     apt-get install -y -qq qrencode
 fi
 
 echo ""
 echo "Installation completed!"
-echo "Shadowrocket Naive URI:"
-echo "$NAIVE_URI"
+echo "NaiveProxy URI:"
+echo "http2://${NAIVE_PLAIN}?padding=1"
 echo ""
-echo "QR Code:"
+echo "QR Code for Shadowrocket:"
 qrencode -t ANSIUTF8 "$NAIVE_URI"
