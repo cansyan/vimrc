@@ -168,23 +168,9 @@ net.ipv4.tcp_congestion_control=bbr
 EOF
 fi
 
-# Generate Shadowrocket-compatible URI 
-# http2://BASE64(user:password@hostname:port)?padding=1
-NAIVE_PLAIN="${USER}:${PASSWORD}@${DOMAIN}:443"
-NAIVE_BASE64=$(echo -n "$NAIVE_PLAIN" | base64 -w 0 2>/dev/null || echo -n "$NAIVE_PLAIN" | base64)
-NAIVE_URI="http2://${NAIVE_BASE64}?padding=1"
-
-# Install qrencode if not available
-if ! command -v qrencode &> /dev/null; then
-    echo "Installing qrencode..."
-    # apt-get update -qq
-    apt-get install -y -qq qrencode
-fi
-
 echo ""
 echo "Installation completed!"
-echo "NaiveProxy URI:"
-echo "http2://${NAIVE_PLAIN}?padding=1"
-echo ""
-echo "QR Code for Shadowrocket:"
-qrencode -t ANSIUTF8 "$NAIVE_URI"
+echo "user: ${USER}"
+echo "password: ${PASSWORD}"
+echo "domain: ${DOMAIN}"
+echo "port: 443"
