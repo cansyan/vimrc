@@ -1,3 +1,5 @@
+eval (/opt/homebrew/bin/brew shellenv)
+
 #if status is-interactive
     # Commands to run in interactive sessions can go here
 #end
@@ -38,5 +40,12 @@ set --export TMPDIR "/tmp"
 alias grep "grep --exclude-dir={.git,.vscode} --binary-files=without-match --color=auto -i -n"
 # make pgrep ignore case and print longer output
 alias pgrep "pgrep -l -i"
-
 alias vim nvim
+
+if test -d (brew --prefix)"/share/fish/completions"
+    set -p fish_complete_path (brew --prefix)/share/fish/completions
+end
+if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+    set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+end
+

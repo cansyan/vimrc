@@ -68,9 +68,15 @@ if ! command -v systemctl &> /dev/null; then
     exit 1
 fi
 
-# Get domain name
-read -p "Please input domain name: " DOMAIN
-DOMAIN=$(echo "$DOMAIN" | xargs)
+# Parse parameters: domain (required), user/password (optional)
+if [[ $# -lt 1 || $# -gt 3 ]]; then
+    echo "Usage: $0 <domain> [user] [password]"
+    exit 1
+fi
+
+DOMAIN=$(echo "$1" | xargs)
+USER=$(echo "$2" | xargs)
+PASSWORD=$(echo "$3" | xargs)
 
 if [[ -z "$DOMAIN" ]]; then
     echo "Domain name cannot be empty"
@@ -106,9 +112,14 @@ if [[ "$HOST" != "$IP" ]]; then
     exit 1
 fi
 
-# Generate random credentials
-USER=$(openssl rand -hex 8)
-PASSWORD=$(openssl rand -hex 16)
+# Generate random credentials if not provided
+if [[ -z "$USER" ]]; then
+    USER=$(openssl rand -hex 8)
+fi
+
+if [[ -z "$PASSWORD" ]]; then
+    PASSWORD=$(openssl rand -hex 16)
+fi
 
 echo "Starting installation..."
 
@@ -170,7 +181,7 @@ fi
 
 echo ""
 echo "Installation completed!"
-echo "user: ${USER}"
-echo "password: ${PASSWORD}"
 echo "domain: ${DOMAIN}"
 echo "port: 443"
+echo "user: ${USER}"
+echo "password: ${PASSWORD}"
