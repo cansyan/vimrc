@@ -114,11 +114,11 @@ fi
 
 # Generate random credentials if not provided
 if [[ -z "$USER" ]]; then
-    USER=$(openssl rand -hex 8)
+    USER=$(openssl rand -hex 4)
 fi
 
 if [[ -z "$PASSWORD" ]]; then
-    PASSWORD=$(openssl rand -hex 16)
+    PASSWORD=$(openssl rand -hex 8)
 fi
 
 echo "Starting installation..."

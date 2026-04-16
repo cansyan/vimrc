@@ -6,21 +6,25 @@
 
     <!-- Unique label -->
     <key>Label</key>
-    <string>naiveproxy</string>
+    <string>shadowsocks</string>
 
+    <!-- Command and arguments -->
     <key>ProgramArguments</key>
     <array>
-      <string>/usr/local/bin/naive</string>
-      <string>/Users/cse/.config/naive/config.json</string>
+      <string>sslocal</string>
+	  <string>-c</string>
+      <string>/Users/cse/.config/shadowsocks/config.json</string>
     </array>
 
+    <!-- Run at load -->
     <key>RunAtLoad</key>
     <true/>
 
+    <!-- Logs -->
     <key>StandardOutPath</key>
-    <string>/tmp/naiveproxy.out.log</string>
+    <string>/tmp/sslocal.out.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/naiveproxy.err.log</string>
+    <string>/tmp/sslocal.err.log</string>
   </dict>
 </plist>
