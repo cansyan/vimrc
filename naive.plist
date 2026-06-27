@@ -4,7 +4,6 @@
 <plist version="1.0">
   <dict>
 
-    <!-- Unique label -->
     <key>Label</key>
     <string>naiveproxy</string>
 
@@ -17,10 +16,13 @@
     <key>RunAtLoad</key>
     <true/>
 
+	<key>KeepAlive</key>
+    <true/>
+
     <key>StandardOutPath</key>
-    <string>/tmp/naiveproxy.out.log</string>
+    <string>/tmp/naiveproxy.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/tmp/naiveproxy.err.log</string>
+    <string>/tmp/naiveproxyerr.log</string>
   </dict>
 </plist>

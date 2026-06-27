@@ -13,9 +13,8 @@ set --export GOPROXY "https://goproxy.cn,direct"
 set --export EDITOR "vim"
 set --export TMPDIR "/tmp"
 
-# make grep human-friendly, will be faster without searching binary files
+# grep will be faster without searching binary files
 alias grep "grep --exclude-dir={.git,.vscode} --binary-files=without-match --color=auto -i -n"
-# make pgrep ignore case and print longer output
 alias pgrep "pgrep -i"
 alias vim nvim
 
@@ -31,4 +30,3 @@ end
 
 set -x http_proxy http://127.0.0.1:8080
 set -x https_proxy http://127.0.0.1:8080
-#set -x all_proxy socks5://127.0.0.1:1080
