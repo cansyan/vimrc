@@ -4,18 +4,23 @@ set -e
 
 CADDY_CFG='
 {
-    order forward_proxy before file_server
+  order forward_proxy before file_server
+  log {
+    exclude http.log.error # Avoid logging user activity
+  }
 }
 :443, %s {
-    forward_proxy {
-        basic_auth %s %s
-        hide_ip
-        hide_via
-        probe_resistance
-    }
-    file_server {
-        root /var/www/html
-    }
+  tls me@%s
+  encode
+  forward_proxy {
+    basic_auth %s %s
+    hide_ip
+    hide_via
+    probe_resistance
+  }
+  file_server {
+    root /var/www/html
+  }
 }
 '
 
@@ -142,7 +147,7 @@ mkdir -p /var/www/html
 echo "$INDEX_HTML" > /var/www/html/index.html
 
 # Create Caddyfile
-printf "$CADDY_CFG" "$DOMAIN" "$USER" "$PASSWORD" > /usr/local/etc/Caddyfile
+printf "$CADDY_CFG" "$DOMAIN" "$DOMAIN" "$USER" "$PASSWORD" > /usr/local/etc/Caddyfile
 
 # Create caddy user if not exists
 if ! id -u caddy &> /dev/null; then
@@ -164,20 +169,14 @@ systemctl daemon-reload
 systemctl enable caddy
 systemctl start caddy
 
-# Enable BBR
-echo "Enabling BBR..."
-sysctl -w net.core.default_qdisc=fq
-sysctl -w net.ipv4.tcp_congestion_control=bbr
-
-# Persist BBR settings
-if ! grep -q "net.ipv4.tcp_congestion_control=bbr" /etc/sysctl.conf; then
-    cat >> /etc/sysctl.conf << EOF
-
-# BBR configuration
+# Make BBR persistent
+tee /etc/sysctl.d/99-bbr.conf >/dev/null <<'EOF'
 net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
 EOF
-fi
+
+# Apply
+sysctl --system
 
 echo ""
 echo "Installation completed!"

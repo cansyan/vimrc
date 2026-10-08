@@ -9,13 +9,11 @@ set -gx GOPATH (go env GOPATH)
 fish_add_path $GOPATH/bin
 fish_add_path /Users/cse/.local/bin
 
-# set --export GOPROXY "https://goproxy.cn,direct"
-set --export EDITOR "vim"
+set --export EDITOR "nvim"
 set --export TMPDIR "/tmp"
 
 # grep will be faster without searching binary files
 alias grep "grep --exclude-dir={.git,.vscode} --binary-files=without-match --color=auto"
-alias pgrep "pgrep -i"
 alias vim nvim
 
 # make lsof show numeric network address
@@ -28,8 +26,10 @@ if test -d (brew --prefix)"/share/fish/vendor_completions.d"
     set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
 end
 
-set -x http_proxy http://127.0.0.1:8080
-set -x https_proxy http://127.0.0.1:8080
+#set -x http_proxy http://127.0.0.1:8080
+#set -x https_proxy http://127.0.0.1:8080
 
 # Added by Antigravity CLI installer
 set -gx PATH "/Users/cse/.local/bin" $PATH
+
+set -x XDG_CONFIG_HOME "$HOME/.config"
